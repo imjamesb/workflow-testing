@@ -25,4 +25,4 @@ jobs:
       - name: stuff
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          deno run -A --no-check -q scripts/_.ts ${{ github.event.head_commit.message }}
+          deno run -A --no-check -q scripts/_.ts "${{ github.event.head_commit.message }}"
