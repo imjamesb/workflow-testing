@@ -25,12 +25,4 @@ jobs:
       - name: stuff
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          export NEWTAG="$(deno run -A --no-check -q scripts/_.ts)"
-          rm -rf version.ts && echo "export default \"$NEWTAG\";" >> version.ts
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git add .
-          git commit -m "Incremented version to $NEWTAG"
-          git tag $NEWTAG
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push -u origin $NEWTAG
+          deno run -A --no-check -q scripts/_.ts ${{ github.event.head_commit.message }}
