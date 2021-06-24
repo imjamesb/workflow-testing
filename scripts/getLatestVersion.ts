@@ -9,4 +9,4 @@ import output from "./.output.ts";
 const secret = Deno.env.get("GITHUB_TOKEN");
 if (!secret) throw new Error("Missing github token!");
 
-console.log("Going great!");
+output("Going great!");
