@@ -24,4 +24,6 @@ jobs:
       
       - name: Release
         if: "contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#alpha')"
-        run: deno run scripts/version.ts
+        run: |
+          deno run -A scripts/latest.ts
+          deno run -A scripts/update.ts
