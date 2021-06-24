@@ -8,7 +8,6 @@ import {
 } from "https://deno.land/x/semver@v1.4.0/mod.ts";
 
 $.verbose = 4;
-$.setShell("bash", "-c");
 $.env = Deno.env.toObject();
 
 let version!: string;
