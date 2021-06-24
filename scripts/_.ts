@@ -38,13 +38,15 @@ if (latest && version !== undefined) {
 
 if (!version) Deno.exit(0);
 
+Deno.writeTextFileSync("version.ts", `export default "${version}";\n`);
+
 await $`
-  rm -rf version.ts && echo "export default \"\${NEWTAG}\";" >> version.ts
-  git config user.name "\${GITHUB_ACTOR}"
-  git config user.email "\${GITHUB_ACTOR}@users.noreply.github.com"
+  rm -rf version.ts && echo "export default \"${version}\";" >> version.ts
+  git config user.name "${$.env.GITHUB_ACTOR}"
+  git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com"
   git add .
-  git commit -m "Incremented version to \${NEWTAG}"
-  git tag \${NEWTAG}
-  git remote set-url origin https://x-access-token:\${GITHUB_TOKEN}@github.com/\${GITHUB_REPOSITORY}
-  git push -u origin \${NEWTAG}
+  git commit -m "Incremented version to ${version}"
+  git tag ${version}
+  git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY}
+  git push -u origin ${version}
 `;
