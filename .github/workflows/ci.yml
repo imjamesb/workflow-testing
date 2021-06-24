@@ -23,7 +23,7 @@ jobs:
         run: deno test -A --allow-none
       
       - name: Release tag (if version bump).
-        id: do-tag
+        id: do_tag
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           deno run -A --no-check -q scripts/_.ts "${{ github.event.head_commit.message }}"
@@ -45,4 +45,4 @@ jobs:
             dot-x86_64-apple-darwin.zip
             dot-aarch64-apple-darwin.zip
           draft: true
-          tag_name: ${{ needs.do-tag.outputs.version }}
+          tag_name: ${{ needs.do_tag.outputs.version }}
