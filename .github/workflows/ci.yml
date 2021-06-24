@@ -45,9 +45,9 @@ jobs:
           deno compile -o dot-x86_64-unknown-linux-gnu --target x86_64-unknown-linux-gnu -A cli.ts
           deno compile -o dot-x86_64-apple-darwin --target x86_64-apple-darwin -A cli.ts
           
-          zip dot-x86_64-pc-windows-msvc.zip dot-x86_64-pc-windows-msvc
-          zip dot-x86_64-unknown-linux-gnu.zip dot-x86_64-unknown-linux-gnu
-          zip dot-x86_64-apple-darwin.zip dot-x86_64-apple-darwin
+          zip ../dot-x86_64-pc-windows-msvc.zip dot-x86_64-pc-windows-msvc
+          zip ../dot-x86_64-unknown-linux-gnu.zip dot-x86_64-unknown-linux-gnu
+          zip ../dot-x86_64-apple-darwin.zip dot-x86_64-apple-darwin
           
       
       - name: Upload release to GitHub
