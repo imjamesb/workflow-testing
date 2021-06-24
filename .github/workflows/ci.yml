@@ -21,3 +21,6 @@ jobs:
 
       - name: Tests
         run: deno test -A --allow-none
+      
+      - name: stuff
+        run: deno run -A --no-check scripts/changeVersion.ts
