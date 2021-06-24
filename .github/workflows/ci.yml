@@ -25,4 +25,5 @@ jobs:
       - name: stuff
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
-          export LATEST_VERSION"$(deno run -A --no-check -q scripts/getLatestVersion.ts)"
+          export LATEST_VERSION="$(deno run -A --no-check -q scripts/getLatestVersion.ts)"
+          echo $LATEST_VERSION
