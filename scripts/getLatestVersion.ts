@@ -1,5 +1,5 @@
 // Imports
-import $ from "https://deno.land/x/cash@0.1.0-alpha.13/mod.ts";
+import _$ from "https://deno.land/x/cash@0.1.0-alpha.13/mod.ts";
 import {
   maxSatisfying as _maxSatisfying,
   valid as _valid,
