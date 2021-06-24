@@ -2,7 +2,6 @@ name: "ci"
 on: [push]
 jobs:
   ci:
-    name: "ci"
     - uses: denoland/setup-deno@v1
       with:
         deno-version: v1.x
