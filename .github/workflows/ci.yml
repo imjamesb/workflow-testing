@@ -28,6 +28,8 @@ jobs:
           rm -rf version.ts && echo "export default \"$(deno run -A scripts/update.ts "$(deno run -A scripts/latest.ts)" "${{ github.event.head_commit.message }}")\";" >> version.ts
           git add .
           export NEW_VERSION=$(deno run -A scripts/version.ts)
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git commit -m "Incremented version to '$NEW_VERSION'."
           git tag $NEW_VERSION
-          git push -u origin $NEW_VERSION
+          git push --tags
