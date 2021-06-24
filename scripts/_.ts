@@ -58,15 +58,15 @@ if (await exists(".git/hooks")) {
   Deno.rename(".git/hooks", ".git/hooks-tmp");
 }
 
-await $`
-git config user.name "${$.env.GITHUB_ACTOR}";
-git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com";
-git add .;
-git commit -m "Incremented version to ${version}";
-git tag ${version};
-git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};
-git push -u origin ${version};
-`;
+await $`git config user.name "${$.env.GITHUB_ACTOR}"`;
+// deno-fmt-ignore
+await $`git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com";`;
+await $`git add .;`;
+await $`git commit -m "Incremented version to ${version}";`;
+await $`git tag ${version};`;
+// deno-fmt-ignore
+await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};`;
+await $`git push -u origin ${version};`;
 
 if (await exists(".git/hooks-tmp")) {
   Deno.rename(".git/hooks-tmp", ".git/hooks");
