@@ -23,6 +23,26 @@ jobs:
         run: deno test -A --allow-none
       
       - name: Release tag (if version bump).
+        id: do-tag
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           deno run -A --no-check -q scripts/_.ts "${{ github.event.head_commit.message }}"
+          echo "::set-output name=version::$(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)"
+      
+      - name: Release binaries (if exists).
+        if: |
+          hashFiles('dot-x86_64-unknown-linux-gnu.zip') != '' &&
+          hashFiles('dot-x86_64-pc-windows-msvc.zip') != '' &&
+          hashFiles('dot-x86_64-apple-darwin.zip') != '' &&
+          hashFiles('dot-aarch64-apple-darwin.zip') != ''
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            dot-x86_64-unknown-linux-gnu.zip
+            dot-x86_64-pc-windows-msvc.zip
+            dot-x86_64-apple-darwin.zip
+            dot-aarch64-apple-darwin.zip
+          draft: true
+          tag_name: ${{ steps.do-tag.version }}
