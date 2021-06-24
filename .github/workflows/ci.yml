@@ -25,11 +25,8 @@ jobs:
       - name: Release
         if: "contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#pre')"
         run: |
-          DIR=$PWD
-          cd ..
-          rm -rf $PWD
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY $DIR
-          cd $DIR
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY .repository
+          cd .repository
           git checkout $GITHUB_REF
           export SCRIPTS="https://raw.githubusercontent.com/ihack2712/workflow-testing/1241729ebfcc0e3d912382332b9b00d9b28d4db4/scripts"
           export OLD_VERSION=$(deno run -A $SCRIPTS/version.ts)
