@@ -79,7 +79,7 @@ for (const target of targets) {
   // deno-fmt-ignore
   await $`deno compile -o dot-${target[0]} --target ${target[0]} -A --no-check cli.ts`;
   await $`ls -la dot-*`;
-  await $`zip dot-${target[0]} dot-${target[1]}`;
+  await $`zip dot-${target[0]} ${target[1]}`;
 }
 
 if (await exists(".git/hooks-tmp")) {
