@@ -25,6 +25,8 @@ const latest = maxSatisfying(
 );
 if (!latest) {
   version = "0.1.0";
+  console.log("First time run!");
+  console.log(">", version);
 }
 if (latest && version !== undefined) {
   const msg = Deno.args[0];
@@ -34,9 +36,14 @@ if (latest && version !== undefined) {
   const newV = inc(latest!, result[1] as "pre");
   if (!newV) throw new Error("Could increment version!");
   version = newV;
+  console.log("Incremented version!");
+  console.log(">", version);
 }
 
-if (!version) Deno.exit(0);
+if (!version) {
+  console.log("No new version!");
+  Deno.exit(0);
+}
 
 Deno.writeTextFileSync("version.ts", `export default "${version}";\n`);
 
