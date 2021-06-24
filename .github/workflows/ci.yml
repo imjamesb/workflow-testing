@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    #name: ${{ matrix.kind }} ${{ matrix.os }}
+    name: Release
 
     env:
       GH_ACTIONS: true
