@@ -4,6 +4,6 @@ import {
   maxSatisfying as _maxSatisfying,
   valid as _valid,
 } from "https://deno.land/x/semver@v1.4.0/mod.ts";
-import _output from "./.output.ts";
+import output from "./.output.ts";
 
-await $.echo`${Deno.env.get("GITHUB_SECRET")}`;
+output(Deno.env.get("GITHUB_SECRET") || "none");
