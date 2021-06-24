@@ -81,7 +81,6 @@ for (const target of targets) {
 // deno-fmt-ignore
 await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};`;
 await $`git push -u origin ${version};`;
-await $`echo "::set-output name=version::${version}"`;
 
 if (await exists(".git/hooks-tmp")) {
   Deno.rename(".git/hooks-tmp", ".git/hooks");
