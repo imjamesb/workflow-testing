@@ -8,6 +8,7 @@ import {
 
 $.verbose = 4;
 $.setShell("bash", "-c");
+$.env = Deno.env.toObject();
 
 let version!: string | null;
 
