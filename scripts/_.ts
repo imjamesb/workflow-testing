@@ -63,6 +63,7 @@ await $`git config user.name "${$.env.GITHUB_ACTOR}"`;
 await $`git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com";`;
 await $`git add .;`;
 await $`git commit -m "Incremented version to ${version}";`;
+await $`git tag ${version};`;
 
 const targets = [
   ["x86_64-unknown-linux-gnu", "dot-x86_64-unknown-linux-gnu"],
@@ -77,9 +78,6 @@ for (const target of targets) {
   await $`zip dot-${target[0]} ${target[1]}`;
 }
 
-await $`git add .`;
-await $`git commit -m "Added binaries."`;
-await $`git tag ${version};`;
 // deno-fmt-ignore
 await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};`;
 await $`git push -u origin ${version};`;
