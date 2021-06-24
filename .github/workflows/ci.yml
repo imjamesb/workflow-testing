@@ -34,4 +34,4 @@ jobs:
           git tag $NEW_VERSION
           git remote remove origin
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push --tags
+          git push -fu origin $NEW_VERSION
