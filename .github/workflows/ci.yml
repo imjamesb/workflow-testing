@@ -41,11 +41,11 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git push -fu origin $NEW_VERSION
           
-          deno compile -o dot-x86_64-pc-windows-msvc --target x86_64-pc-windows-msvc -A cli.ts
-          deno compile -o dot-x86_64-unknown-linux-gnu --target x86_64-unknown-linux-gnu -A cli.ts
-          deno compile -o dot-x86_64-apple-darwin --target x86_64-apple-darwin -A cli.ts
+          deno compile -o ./dot-x86_64-pc-windows-msvc --target x86_64-pc-windows-msvc -A cli.ts
+          deno compile -o ./dot-x86_64-unknown-linux-gnu --target x86_64-unknown-linux-gnu -A cli.ts
+          deno compile -o ./dot-x86_64-apple-darwin --target x86_64-apple-darwin -A cli.ts
           
-          cat dot-x86_64-pc-windows-msvc
+          cat ./dot-x86_64-pc-windows-msvc
           zip ../dot-x86_64-pc-windows-msvc dot-x86_64-pc-windows-msvc
           zip ../dot-x86_64-unknown-linux-gnu dot-x86_64-unknown-linux-gnu
           zip ../dot-x86_64-apple-darwin dot-x86_64-apple-darwin
