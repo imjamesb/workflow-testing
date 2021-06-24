@@ -48,4 +48,4 @@ jobs:
             dot-x86_64-apple-darwin.zip
             dot-aarch64-apple-darwin.zip
           draft: true
-          tag_name: ${TAG}
+          tag_name: ${{ env.TAG }}
