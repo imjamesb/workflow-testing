@@ -21,14 +21,7 @@ jobs:
 
       - name: Tests
         run: deno test -A --allow-none
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    if: "!startsWith(github.event.head_commit.message, 'WIP:') && (contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#alpha'))"
-    steps:
-      - uses: actions/checkout@v2
-      - uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
-      - name: "Update versions."
-        run: echo hi
+      
+      - name: Release
+        if: "contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#alpha')"
+        run: echo hello
