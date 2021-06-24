@@ -28,6 +28,4 @@ jobs:
       - name: Tests
         run: deno test -A --allow-none
       
-      - name: Build, update and release.
-        if: |
-          
+      #- name: Build, update and release.
