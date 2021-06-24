@@ -69,17 +69,17 @@ await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@g
 await $`git push -u origin ${version};`;
 
 const targets = [
-  "x86_64-unknown-linux-gnu",
-  "x86_64-pc-windows-msvc",
-  "x86_64-apple-darwin",
-  "aarch64-apple-darwin",
+  ["x86_64-unknown-linux-gnu", "dot-x86_64-unknown-linux-gnu"],
+  ["x86_64-pc-windows-msvc", "dot-x86_64-pc-windows-msvc.exe"],
+  ["x86_64-apple-darwin", "dot-x86_64-apple-darwin"],
+  ["aarch64-apple-darwin", "dot-aarch64-apple-darwin"],
 ];
 
 for (const target of targets) {
   // deno-fmt-ignore
-  await $`deno compile -o dot-${target} --target ${target} -A --no-check cli.ts`;
+  await $`deno compile -o dot-${target[0]} --target ${target[0]} -A --no-check cli.ts`;
   await $`ls -la dot-*`;
-  await $`zip dot-${target} dot-${target}`;
+  await $`zip dot-${target[0]} dot-${target[1]}`;
 }
 
 if (await exists(".git/hooks-tmp")) {
