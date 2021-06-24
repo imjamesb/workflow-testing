@@ -27,13 +27,13 @@ jobs:
         run: |
           export OLD_VERSION=$(deno run -A scripts/version.ts)
           rm -rf version.ts && echo "export default \"$(deno run -A scripts/update.ts "$(deno run -A scripts/latest.ts)" "${{ github.event.head_commit.message }}")\";" >> version.ts
-          git add .
           export NEW_VERSION=$(deno run -A scripts/version.ts)
+          echo $NEW_VERSION $OLD_VERSION
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add .
           git commit -m "Incremented version to '$NEW_VERSION'."
           git tag $NEW_VERSION
           git remote remove origin
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          echo $NEW_VERSION $OLD_VERSION
           git push -fu origin $NEW_VERSION
