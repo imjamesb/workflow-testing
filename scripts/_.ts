@@ -28,7 +28,7 @@ if (!latest) {
   console.log("First time run!");
   console.log(">", version);
 }
-if (latest && version !== undefined) {
+if (latest && version === undefined) {
   const msg = Deno.args[0];
   if (!msg) Deno.exit(0);
   const result = msg.match(/\#(pre|patch|minor|major)/i);
