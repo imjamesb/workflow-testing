@@ -40,7 +40,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: $(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)
         with:
           files: |
             dot-x86_64-unknown-linux-gnu.zip
@@ -48,4 +47,4 @@ jobs:
             dot-x86_64-apple-darwin.zip
             dot-aarch64-apple-darwin.zip
           draft: true
-          tag_name: ${{ env.TAG }}
+          tag_name: ${{ needs.do-tag.outputs.version }}
