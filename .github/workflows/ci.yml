@@ -6,6 +6,7 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    if: "!startsWith(github.event.head_commit.message, 'WIP:')"
 
     env:
       GH_ACTIONS: true
@@ -26,3 +27,7 @@ jobs:
 
       - name: Tests
         run: deno test -A --allow-none
+      
+      - name: Build, update and release.
+        if: |
+          
