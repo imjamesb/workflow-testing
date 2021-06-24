@@ -41,7 +41,6 @@ if (!version) Deno.exit(0);
 Deno.writeTextFileSync("version.ts", `export default "${version}";\n`);
 
 await $`
-  rm -rf version.ts && echo "export default \"${version}\";" >> version.ts
   git config user.name "${$.env.GITHUB_ACTOR}"
   git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com"
   git add .
