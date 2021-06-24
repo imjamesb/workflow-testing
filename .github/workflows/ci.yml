@@ -27,6 +27,7 @@ jobs:
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           deno run -A --no-check -q scripts/_.ts "${{ github.event.head_commit.message }}"
+          echo "version=$(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)"
           echo "::set-output name=version::$(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)"
       
       - name: Print tag.
