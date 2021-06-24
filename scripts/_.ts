@@ -78,6 +78,7 @@ const targets = [
 for (const target of targets) {
   // deno-fmt-ignore
   await $`deno compile -o dot-${target} --target ${target} -A --no-check cli.ts`;
+  await $`ls -la dot-*`;
   await $`zip dot-${target} dot-${target}`;
 }
 
