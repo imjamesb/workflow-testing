@@ -17,7 +17,7 @@ if (!secret) throw new Error("Missing github token!");
 
 const latest = maxSatisfying(
   [...(await $
-    `git ls-remote -t https://x-access-token:\${GITHUB_TOKEN}@github.com/\${GITHUB_REPOSITORY}`
+    `git ls-remote -t https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY}`
     .stdout()).matchAll(
       /refs\/tags\/([^\n]*)/gi,
     )].map((_) => _[1]).filter((version) => valid(version)),
