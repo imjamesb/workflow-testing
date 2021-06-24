@@ -1,1 +1,1 @@
-console.log("Hello from the CLI!");
+console.log("Hello from the cli");
