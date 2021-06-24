@@ -27,9 +27,7 @@ jobs:
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           deno run -A --no-check -q scripts/_.ts "${{ github.event.head_commit.message }}"
-      
-      - name: Print tag.
-        run: echo ${{ steps.do-tag.version }}
+          echo "::set-output name=version::0.1.22"
       
       - name: Release binaries (if exists).
         if: |
