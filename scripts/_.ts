@@ -10,7 +10,7 @@ $.verbose = 4;
 $.setShell("bash", "-c");
 $.env = Deno.env.toObject();
 
-let version!: string | null;
+let version!: string;
 
 const secret = Deno.env.get("GITHUB_TOKEN");
 if (!secret) throw new Error("Missing github token!");
@@ -28,12 +28,18 @@ if (!latest) {
   console.log("First time run!");
   console.log(">", version);
 }
-if (latest && version === undefined) {
+if (latest && !version) {
   const msg = Deno.args[0];
-  if (!msg) Deno.exit(0);
+  if (!msg) {
+    console.log("No message with commit.");
+    Deno.exit(0);
+  }
   const result = msg.match(/\#(pre|patch|minor|major)/i);
-  if (!result) Deno.exit(0);
-  const newV = inc(latest!, result[1] as "pre");
+  if (!result) {
+    console.log("Could not extract action from commit message.");
+    Deno.exit(0);
+  }
+  const newV = inc(latest!, (result[1].toLowerCase()) as "pre");
   if (!newV) throw new Error("Could increment version!");
   version = newV;
   console.log("Incremented version!");
