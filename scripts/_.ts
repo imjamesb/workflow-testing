@@ -63,10 +63,6 @@ await $`git config user.name "${$.env.GITHUB_ACTOR}"`;
 await $`git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com";`;
 await $`git add .;`;
 await $`git commit -m "Incremented version to ${version}";`;
-await $`git tag ${version};`;
-// deno-fmt-ignore
-await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};`;
-await $`git push -u origin ${version};`;
 
 const targets = [
   ["x86_64-unknown-linux-gnu", "dot-x86_64-unknown-linux-gnu"],
@@ -78,9 +74,15 @@ const targets = [
 for (const target of targets) {
   // deno-fmt-ignore
   await $`deno compile -o dot-${target[0]} --target ${target[0]} -A --no-check cli.ts`;
-  await $`ls -la dot-*`;
   await $`zip dot-${target[0]} ${target[1]}`;
 }
+
+await $`git add .`;
+await $`git commit -m "Added binaries."`;
+await $`git tag ${version};`;
+// deno-fmt-ignore
+await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};`;
+await $`git push -u origin ${version};`;
 
 if (await exists(".git/hooks-tmp")) {
   Deno.rename(".git/hooks-tmp", ".git/hooks");
