@@ -4,11 +4,7 @@ on: [push]
 
 jobs:
   build:
-    name: ${{ matrix.kind }} ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
+    #name: ${{ matrix.kind }} ${{ matrix.os }}
 
     env:
       GH_ACTIONS: true
