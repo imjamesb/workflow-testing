@@ -5,6 +5,7 @@ on: [push]
 jobs:
   build:
     name: Release
+    runs-on: ubuntu-latest
 
     env:
       GH_ACTIONS: true
