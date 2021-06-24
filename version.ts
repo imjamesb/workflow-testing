@@ -1,1 +1,1 @@
-export default "canary";
+export default "latest";
