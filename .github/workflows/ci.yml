@@ -4,15 +4,9 @@ on: [push]
 
 jobs:
   build:
-    name: Release
+    name: Format, Lint and Test
     runs-on: ubuntu-latest
     if: "!startsWith(github.event.head_commit.message, 'WIP:')"
-
-    env:
-      GH_ACTIONS: true
-      DENO_BUILD_MODE: release
-      V8_BINARY: true
-
     steps:
       - uses: actions/checkout@v2
       - uses: denoland/setup-deno@v1
@@ -28,4 +22,15 @@ jobs:
       - name: Tests
         run: deno test -A --allow-none
       
-      #- name: Build, update and release.
+      - name: Build, update and release.
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.event.head_commit.message, 'WIP:') && (contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#alpha'))"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - name: "Update versions."
+        run: echo hi
