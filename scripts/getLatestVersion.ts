@@ -6,4 +6,7 @@ import {
 } from "https://deno.land/x/semver@v1.4.0/mod.ts";
 import output from "./.output.ts";
 
-output(Deno.env.get("GITHUB_SECRET") || "");
+const secret = Deno.env.get("GITHUB_TOKEN");
+if (!secret) throw new Error("Missing github token!");
+
+console.log("Going great!");
