@@ -1,2 +1,3 @@
-import version from "../version.ts";
-Deno.stdout.write(new TextEncoder().encode(version));
+Deno.stdout.write(
+  new TextEncoder().encode(await import(Deno.cwd() + "/version.ts")),
+);
