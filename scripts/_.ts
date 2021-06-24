@@ -68,6 +68,19 @@ await $`git tag ${version};`;
 await $`git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};`;
 await $`git push -u origin ${version};`;
 
+const targets = [
+  "x86_64-unknown-linux-gnu",
+  "x86_64-pc-windows-msvc",
+  "x86_64-apple-darwin",
+  "aarch64-apple-darwin",
+];
+
+for (const target of targets) {
+  // deno-fmt-ignore
+  await $`deno compile -o dot-${target} --target ${target} -A --no-check cli.ts`;
+  await $`zip dot-${target} dot-${target}`;
+}
+
 if (await exists(".git/hooks-tmp")) {
   Deno.rename(".git/hooks-tmp", ".git/hooks");
 }
