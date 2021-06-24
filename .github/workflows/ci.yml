@@ -27,8 +27,6 @@ jobs:
         run: |
           export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           deno run -A --no-check -q scripts/_.ts "${{ github.event.head_commit.message }}"
-          echo "version=$(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)"
-          echo "::set-output name=version::$(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)"
       
       - name: Print tag.
         run: echo ${{ steps.do-tag.version }}
@@ -49,4 +47,4 @@ jobs:
             dot-x86_64-apple-darwin.zip
             dot-aarch64-apple-darwin.zip
           draft: true
-          tag_name: ${{ steps.do-tag.version }}
+          tag_name: $(echo "Deno.stdout.writeSync(new TextEncoder().encode(Deno.readTextFileSync('version.ts').trim().substring(16).slice(0, -2)))" | deno run -A -)
