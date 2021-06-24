@@ -6,6 +6,8 @@ import {
   valid,
 } from "https://deno.land/x/semver@v1.4.0/mod.ts";
 
+$.verbose = 4;
+
 let version!: string | null;
 
 const secret = Deno.env.get("GITHUB_TOKEN");
