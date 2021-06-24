@@ -1,4 +1,5 @@
 // Imports
+import { exists } from "https://deno.land/std@0.99.0/fs/exists.ts";
 import $ from "https://deno.land/x/cash@0.1.0-alpha.13/mod.ts";
 import {
   inc,
@@ -54,6 +55,10 @@ if (!version) {
 Deno.writeTextFileSync("version.ts", `export default "${version}";\n`);
 console.log("Written version.ts to", version);
 
+if (await exists(".git/hooks")) {
+  Deno.rename(".git/hooks", ".git/hooks-tmp");
+}
+
 await $`
 git config user.name "${$.env.GITHUB_ACTOR}";
 git config user.email "${$.env.GITHUB_ACTOR}@users.noreply.github.com";
@@ -63,3 +68,7 @@ git tag ${version};
 git remote set-url origin https://x-access-token:${$.env.GITHUB_TOKEN}@github.com/${$.env.GITHUB_REPOSITORY};
 git push -u origin ${version};
 `;
+
+if (await exists(".git/hooks-tmp")) {
+  Deno.rename(".git/hooks-tmp", ".git/hooks");
+}
