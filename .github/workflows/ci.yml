@@ -23,6 +23,10 @@ jobs:
         run: deno test -A --allow-none
       
       - name: Release
-        if: "contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#alpha')"
+        if: "contains(github.event.head_commit.message, '#major') || contains(github.event.head_commit.message, '#minor') || contains(github.event.head_commit.message, '#patch') || contains(github.event.head_commit.message, '#pre')"
         run: |
           deno run -A scripts/update.ts "$(deno run -A scripts/latest.ts)" "${{ github.event.head_commit.message }}"
+          git add .
+          git commit -m "Updated version."
+          git tag '$(deno run -A scripts/version.ts)'
+          git push -u origin '$(deno run -A scripts/version.ts)'
