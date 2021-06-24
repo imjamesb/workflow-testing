@@ -16,8 +16,6 @@ const latest = maxSatisfying(
   ">= 0",
 );
 if (!latest) {
-  output("0.0.0");
+  output("0.10");
   Deno.exit(0);
 }
-
-output(latest);
