@@ -23,4 +23,6 @@ jobs:
         run: deno test -A --allow-none
       
       - name: stuff
-        run: deno run -A --no-check scripts/changeVersion.ts
+        run: |
+          export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          export LATEST_VERSION"$(deno run -A --no-check -q scripts/getLatestVersion.ts)"
